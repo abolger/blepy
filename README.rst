@@ -27,11 +27,24 @@ Api Generation
    
 #. Compile the uart module (which is imported into "ble.py" by ctypes). This
    requires the "uart.c" and "uart.h" files from SDK/src/thermometer-demo
-   
    ``gcc -o uart.so uart.c -shared``
-   
+
+Api Generation: WINDOWS ONLY
+--------------
+#. Follow steps 1 and 2 above for Python prerequisites.   
+
+#. If you're on Windows and you don't have the GCC for windows yet, you can get the latest minimal distribution from here: http://sourceforge.net/projects/mingw/files/latest/download?source=files)
+
+#. Add the line "#def PLATFORM_WIN 1" to your BlueGiga SDK's "uart.c" so that you get the Windows .so compiled object instead of the . 
+
+#. Run the following:
+    ``C:\MinGW\bin>gcc.exe -o uart.so C:\Bluegiga\ble-1.3.1-119\src\thermometer-demo\uart.c -DPLATFORM_WIN -shared -lsetupapi``
+    ``C:\MinGW\bin>move uart.so C:\Your_BLEPY_DIRECTORIES\uart.so
+    
 #. Copy the "uart.so" file to the same location as "ble.py" 
 
+#. Example Windows usage (assuming a BLE113 or BLUE112 USB dongle is plugged in and recognized as a comport:
+    ``python demo.py COM75 scan``
 
 Usage
 -----
